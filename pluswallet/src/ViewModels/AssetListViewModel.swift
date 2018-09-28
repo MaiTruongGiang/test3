@@ -1,0 +1,40 @@
+//
+//  AssetListViewModel.swift
+//  PlusWallet
+//
+//  Created by Zan on 2018-07-23.
+//  Copyright © 2018 PlusWallet LLC. All rights reserved.
+//
+
+import Foundation
+
+struct AssetListViewModel {
+    let currency: CurrencyDef
+
+    var exchangeRate: String {
+        guard let rate = currency.state?.currentRate else { return "" }
+        let placeholderAmount = Amount(amount: 0, currency: currency, rate: rate)
+        guard let rateText = placeholderAmount.localFormat.string(from: NSNumber(value: rate.rate)) else { return "" }
+        return String(format: S.AccountHeader.exchangeRate, rateText, currency.code)
+    }
+
+    var fiatBalance: String {
+        guard let rate = currency.state?.currentRate else { return "" }
+        return balanceString(inFiatWithRate: rate)
+    }
+
+    var tokenBalance: String {
+        return balanceString()
+    }
+    var updownPercent: Double  = 0.0
+    /// Returns balance string in fiat if rate specified or token amount otherwise
+    private func balanceString(inFiatWithRate rate: Rate? = nil) -> String {
+        guard let balance = currency.state?.balance else { return "" }
+        return Amount(amount: balance,
+                      currency: currency,
+                      rate: rate).description
+    }
+    init(currency: CurrencyDef ) {
+        self.currency = currency
+    }
+}

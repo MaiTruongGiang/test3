@@ -1,0 +1,3 @@
+[submodule "Modules/pluswallet-core"]
+	path = Modules/pluswallet-core
+	url = https://github.com/enzi-it/pluswallet-core.git

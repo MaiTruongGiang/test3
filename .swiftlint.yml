@@ -1,0 +1,33 @@
+disabled_rules: # rule identifiers to exclude from running
+- shorthand_operator
+- generic_type_name
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+- pluswallet/src/Platform
+- pluswallet/src/Core
+- Pods
+- Modules
+# implicitly
+line_length: 150
+type_body_length:
+- 400 # error
+function_body_length:
+    warning: 100
+    error: 200
+large_tuple:
+    warning: 4
+    error: 5
+# naming rules can set warnings/errors for min_length and max_length
+# additionally they can set excluded names
+type_name:
+    min_length: 4 # only warning
+    max_length: # warning and error
+        warning: 40
+        error: 50
+    excluded: iPhone # excluded via string
+identifier_name:
+    min_length: # only min_length
+        error: 1 # only error
+        warning: 2 # only error
+    excluded: # excluded via string array
+        - PARAM_NONCE
+reporter: "xcode"
